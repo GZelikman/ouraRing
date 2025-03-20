@@ -1,4 +1,5 @@
 import requests
+import matplotlib.pyplot as plt
 
 def get_data(URL):
     Header = {'Authorization': "Bearer " + APIToken}
@@ -9,7 +10,21 @@ file_path = 'APItoken.txt'
 with open(file_path, 'r') as file:
     APIToken = file.read()
 
-Readiness = get_data("https://api.ouraring.com/v2/usercollection/daily_readiness")
-Activity = get_data("https://api.ouraring.com/v2/usercollection/daily_activity")
-Sleep = get_data("https://api.ouraring.com/v2/usercollection/daily_sleep")
-print("Readiness: ", Readiness["data"][0]["score"] , " Sleep: " , Sleep["data"][0]["score"], " Activity: " , Activity["data"][0]["score"])
+# Prints DailyReadiness, Sleep and Activity scores
+ReadinessScore = get_data("https://api.ouraring.com/v2/usercollection/daily_readiness")
+ActivityScore = get_data("https://api.ouraring.com/v2/usercollection/daily_activity")
+SleepScore = get_data("https://api.ouraring.com/v2/usercollection/daily_sleep")
+print("Readiness: ", ReadinessScore["data"][0]["score"] , " Sleep: " , SleepScore["data"][0]["score"], " Activity: " , ActivityScore["data"][0]["score"])
+
+# Plots Heart Rate from sleep
+Sleep = get_data("https://api.ouraring.com/v2/usercollection/sleep")
+heartrate = Sleep["data"][1]["heart_rate"]["items"]
+time = []
+for i in range(len(heartrate)):
+    time.append(i*5)
+plt.plot(time, heartrate,  'o:r')
+plt.title('Heart Rate while sleeping')
+plt.xlabel('Time')
+plt.ylabel('Heart Rate')
+plt.ylim(min(filter(None, heartrate)) - 10, max(filter(None, heartrate)) + 10)
+plt.show()
