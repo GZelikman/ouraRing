@@ -36,8 +36,7 @@ while con == "y":
     print("Welcome to Oura Data Analysis")
     print("Choose desired option:")
     print("1. Print Daily Readiness, Sleep and Activity scores")
-    print("2. Plot Heart Rate while sleeping")
-    option = int(input())
+    option = int(input("2. Plot Heart Rate while sleeping "))
 
     if option == 1:
         print(get_daily())
@@ -46,4 +45,4 @@ while con == "y":
         plt.show()
     else:
         print("Invalid option")
-    con = input("continue? [y/n]")
+    con = input("continue? [y/n] ")
