@@ -9,7 +9,7 @@ def get_data(URL):
 def get_heart_rate():
     # Plots Heart Rate from sleep
     Sleep = get_data("https://api.ouraring.com/v2/usercollection/sleep")
-    heartrate = Sleep["data"][1]["heart_rate"]["items"]
+    heartrate = Sleep["data"][0]["heart_rate"]["items"]
     time = []
     for i in range(len(heartrate)):
         time.append(i*5)
